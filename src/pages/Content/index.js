@@ -1,4 +1,5 @@
 import { setCloseSidePanelBottom } from './modules/set-close-side-panel-bottom';
+import { printLine } from '../Content/modules/print';
 // トップに文言追加
 window.addEventListener('load', setTextInTop, false);
 function setTextInTop() {
@@ -15,16 +16,28 @@ function setTextInTop() {
 }
 
 // サイドバーを閉じるボタン追加
-window.addEventListener('load', setCloseBottom, false);
-function setCloseBottom() {
+window.addEventListener('load', setObserverForCloseBottom, false);
+function setObserverForCloseBottom() {
   const jsInitCheckTimer = setInterval(jsLoaded, 1000);
   function jsLoaded() {
-    const sidebarNode = document.querySelector(
-      '.p-ia4_client__resizer--secondary'
+    const workspaceLayoutNode = document.querySelector(
+      '.p-client_workspace__layout'
     );
-    if (sidebarNode !== null) {
+    if (workspaceLayoutNode) {
       clearInterval(jsInitCheckTimer);
-      setCloseSidePanelBottom();
+      const observer = new MutationObserver((mutations) => {
+        if (mutations && mutations[0] && mutations[0].addedNodes[0]) {
+          if (
+            mutations[0].addedNodes[0].classList.contains(
+              'p-ia4_client__resizer--secondary'
+            )
+          ) {
+            setCloseSidePanelBottom();
+          }
+        }
+      });
+
+      observer.observe(workspaceLayoutNode, { childList: true }); // 子要素の変更を監視
     }
   }
 }
