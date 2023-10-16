@@ -24,8 +24,13 @@
   "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
-      "resources": ["content.styles.css", "icon-128.png", "icon-34.png"],
-      "matches": []
+      "resources": [
+        "content.styles.css",
+        "icon-128.png",
+        "icon-34.png",
+        "arrow.png"
+      ],
+      "matches": ["https://app.slack.com/*"]
     }
   ]
 }
