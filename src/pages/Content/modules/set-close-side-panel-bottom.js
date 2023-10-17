@@ -13,5 +13,18 @@ export const setCloseSidePanelBottom = () => {
   image.src = chrome.runtime.getURL('arrow.png');
   image.alt = 'アイコン';
 
+  // Mac の場合
+  const closeShortcut = new KeyboardEvent('keydown', {
+    keyCode: 190,
+    metaKey: true,
+  });
+  // Windows/Linux の場合
+  // const closeShortcut = new KeyboardEvent('keydown', {
+  //   keyCode: 190,
+  //   ctrlKey: true,
+  // });
+  image.onclick = () => {
+    document.dispatchEvent(closeShortcut);
+  };
   sidebarNode.appendChild(image);
 };

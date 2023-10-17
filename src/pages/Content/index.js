@@ -1,5 +1,4 @@
 import { setCloseSidePanelBottom } from './modules/set-close-side-panel-bottom';
-import { printLine } from '../Content/modules/print';
 // トップに文言追加
 window.addEventListener('load', setTextInTop, false);
 function setTextInTop() {
