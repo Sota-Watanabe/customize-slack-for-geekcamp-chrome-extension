@@ -1,4 +1,5 @@
 import { setCloseSidePanelBottom } from './modules/set-close-side-panel-bottom';
+import { scrollAutoRead } from './modules/scroll-auto-read';
 // トップに文言追加
 window.addEventListener('load', setTextInTop, false);
 function setTextInTop() {
@@ -37,6 +38,24 @@ function setObserverForCloseBottom() {
       });
 
       observer.observe(workspaceLayoutNode, { childList: true }); // 子要素の変更を監視
+    }
+  }
+}
+
+// スクロール既読機能
+window.addEventListener('load', setScrollAutoRead, false);
+function setScrollAutoRead() {
+  const jsInitCheckTimer = setInterval(jsLoaded, 1000);
+  function jsLoaded() {
+    const workspaceLayoutNode = document.querySelector(
+      '.p-ia__view_header__title'
+    );
+    // 未読ページを開いている場合
+    if (workspaceLayoutNode) {
+      if (workspaceLayoutNode.innerHTML.startsWith('未読')) {
+        clearInterval(jsInitCheckTimer);
+        scrollAutoRead();
+      }
     }
   }
 }
